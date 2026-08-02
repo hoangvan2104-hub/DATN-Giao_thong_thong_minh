@@ -1,0 +1,31 @@
+# Chạy: docker compose up -d --build   rồi mở http://localhost:8000
+# Dừng:  docker compose down
+# Xem log: docker compose logs -f
+#
+# Mount 2 thư mục từ máy host vào container:
+# - ./data       : video vào/ra, log vi phạm, ảnh minh chứng, thumbnail — PHẢI mount để dữ liệu
+#                   không mất khi container bị xoá/tạo lại, và để thêm video mới bằng cách copy
+#                   thẳng file vào data/input/ trên máy host (không cần vào trong container).
+# - ./config/videos : để Config Wizard tạo/sửa config mới lưu được ra máy host, không mất khi
+#                   container bị xoá/tạo lại.
+services:
+  web:
+    build: .
+    image: datn-traffic-web:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./config/videos:/app/config/videos
+    # GPU passthrough (cần NVIDIA Container Toolkit trên host — xem DOCKER.md). Không có GPU/chưa
+    # cài toolkit thì XOÁ hẳn khối "deploy" này — hệ thống tự chuyển sang chạy CPU (chậm hơn,
+    # không đạt thời gian thực, nhưng không lỗi — xem tracker.py/no_helmet.py/plate_ocr.py: tự
+    # `torch.cuda.is_available()` rồi fallback).
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped

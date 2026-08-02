@@ -1,0 +1,56 @@
+# Dữ liệu runtime (video/log/evidence/thumbnail) — quá lớn để bake vào image (2GB+ trên máy dev)
+# và phải là dữ liệu MỚI của người dùng thật, không phải dữ liệu test lúc build. Mount qua volume
+# trong docker-compose.yml (khớp đúng thư mục dự án thật) thay vì copy vào image — .gitkeep giữ
+# cây thư mục không rỗng nếu ai đó lỡ chạy `docker run` mà quên mount volume. `logo.png` giữ lại
+# riêng (nhỏ, có sẵn trong git, được header Web UI dùng qua /data/logo.png — không nên vỡ ảnh dù
+# chạy image mà chưa mount volume).
+data/*
+!data/.gitkeep
+!data/logo.png
+!data/input/.gitkeep
+!data/output/.gitkeep
+!data/logs/.gitkeep
+!data/evidence/.gitkeep
+!data/thumbnails/.gitkeep
+!data/processed/.gitkeep
+# Mẫu biên bản tra cứu quy trình xử lý phạt nguội — link tĩnh ở footer Web UI (/data/bienban/...).
+!data/bienban
+!data/bienban/mautailieu
+!data/bienban/mautailieu/*
+
+# Model chỉ dùng cho báo cáo Baseline vs Proposed (mục 10 README), KHÔNG model nào trong
+# config/videos/*.json trỏ tới các file này lúc chạy thật — loại khỏi image cho gọn (~150MB).
+models/pretrained/helmet/
+# .onnx chưa được dùng mặc định (cần cài thêm onnxruntime-gpu, chưa có trong requirements.txt)
+# và bestyolo.pt (.pt) đã đủ cho mọi config hiện có.
+models/pretrained/*.onnx
+
+# Tài liệu/công cụ dev — không cần lúc CHẠY hệ thống, chỉ cần lúc phát triển/viết báo cáo.
+docs/
+eval/
+train/
+assets/readme/
+báo cáo/
+*.md
+!README.md
+
+# Git/IDE/venv/cache — không liên quan runtime, tránh build context phình to hoặc lộ lịch sử.
+.git/
+.gitignore
+.venv/
+.claude/
+.vscode/
+__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Đóng gói Docker — không cần copy lại chính các file này vào bên trong image. *.tar (image xuất
+# ra file, 10GB+) và *.bat (script chạy trên máy HOST để load/run image, không phải trong image).
+Dockerfile
+.dockerignore
+docker-compose.yml
+*.tar
+*.bat
