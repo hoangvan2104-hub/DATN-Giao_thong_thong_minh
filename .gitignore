@@ -1,0 +1,50 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# data & model artifacts (thường quá lớn cho git)
+data/input/*
+data/processed/*
+data/output/*
+data/logs/*
+data/evidence/*
+data/thumbnails/*
+data/report_export/
+!data/input/.gitkeep
+!data/processed/.gitkeep
+!data/output/.gitkeep
+!data/logs/.gitkeep
+!data/evidence/.gitkeep
+!data/thumbnails/.gitkeep
+models/**/*.pt
+models/**/*.onnx
+models/**/*.engine
+models/**/*.weights
+
+# Docker image xuất ra file (đóng gói "Cách B" gửi cho người khác — xem DOCKER.md) — quá nặng
+# (10GB+) cho git, không bao giờ commit.
+*.tar
+*.zip
+datn-he-thong-giao-thong/
+_docker_up_err.tmp
+
+# Workspace huấn luyện Colab copy nguyên vẹn vào máy (checkpoint/dataset/notebook nặng, ~2.2GB) —
+# không phải mã nguồn, không commit. Notebook chính giữ riêng 1 bản nhẹ ở notebooks/Helmet.ipynb
+# nếu cần tham khảo.
+notebooks/DATN_Helmet/
+
+# env / secrets
+.env
+
+# OS/editor
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/
+
+# Thuyết minh/tài liệu báo cáo (chưa từng đưa lên git, giữ riêng ngoài repo mã nguồn)
+Báo cáo/

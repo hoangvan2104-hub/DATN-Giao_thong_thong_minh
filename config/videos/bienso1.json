@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "video_name": "bienso1.mp4",
+    "video_id": "BS1",
+    "created_at": "2026-07-17",
+    "description": "Video demo doc bien so, camera cam tay (khong co dinh) - dung chung cau truc voi bienso0/bienso2, migrate tu config cu bienso.json"
+  },
+  "classes": ["car", "motorcycle", "truck", "bus", "bicycle"],
+  "zones": [
+    {
+      "id": "R0",
+      "type": "road",
+      "name": "road_detect",
+      "polygon": [[0, 0], [720, 0], [720, 1280], [0, 1280]],
+      "role": "detection",
+      "display": {
+        "color": [96, 235, 9],
+        "opacity": 0.0
+      }
+    },
+    {
+      "id": "R1",
+      "type": "road",
+      "name": "road_main",
+      "polygon": [[0, 0], [720, 0], [720, 1280], [0, 1280]],
+      "role": "analysis",
+      "display": {
+        "color": [252, 173, 3],
+        "opacity": 0.0
+      }
+    }
+  ],
+  "traffic_lights": [],
+  "lines": [],
+  "vectors": [],
+  "system": {
+    "timezone": "GMT+7",
+    "tracker": "bytetrack",
+    "tracker_params": {
+      "track_buffer": 60,
+      "match_thresh": 0.95
+    },
+    "detection_params": {
+      "conf": 0.1,
+      "imgsz": 1280,
+      "nms_iou": 0.25,
+      "min_visible_conf": 0.3
+    },
+    "features": {
+      "detect_wrong_way": false,
+      "detect_red_light": false,
+      "detect_wrong_turn": false,
+      "detect_wrong_lane": false,
+      "detect_plate": true,
+      "detect_helmet": true
+    },
+    "tracking_point": {
+      "anchor": "bottom_center",
+      "offset": [0, 0]
+    },
+    "plate_params": {
+      "throttle_frames": 10,
+      "max_attempts": 5
+    },
+    "helmet_params": {
+      "model_path": "models/pretrained/bestyolo.pt",
+      "throttle_frames": 10,
+      "confirm_votes": 3,
+      "conf": 0.25,
+      "vote_window": 5
+    }
+  }
+}

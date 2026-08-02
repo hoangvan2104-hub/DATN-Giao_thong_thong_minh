@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "video_name": "IMG_3740.mp4",
+    "video_id": "IMG2",
+    "created_at": "2026-07-17",
+    "description": "Doan duong mot chieu (Ha Noi) - migrate tu config cu configbienso.json, dung chung cau truc voi IMG_3739"
+  },
+  "classes": ["car", "motorcycle", "truck", "bus", "bicycle"],
+  "zones": [
+    {
+      "id": "R0",
+      "type": "road",
+      "name": "road_detect",
+      "polygon": [[149, 319], [983, 338], [1350, 5], [2242, 5], [3824, 2140], [25, 2150], [11, 1892], [521, 1053], [11, 763], [1, 505]],
+      "role": "detection",
+      "display": {
+        "color": [96, 235, 9],
+        "opacity": 0.05
+      }
+    },
+    {
+      "id": "R1",
+      "type": "road",
+      "name": "road_main",
+      "polygon": [[149, 319], [983, 338], [1350, 5], [2242, 5], [3824, 2140], [25, 2150], [11, 1892], [521, 1053], [11, 763], [1, 505]],
+      "role": "analysis",
+      "display": {
+        "color": [252, 173, 3],
+        "opacity": 0.05
+      }
+    },
+    {
+      "id": "L1",
+      "type": "lane",
+      "name": "lan_duy_nhat",
+      "polygon": [[149, 319], [983, 338], [1350, 5], [2242, 5], [3824, 2140], [25, 2150], [11, 1892], [521, 1053], [11, 763], [1, 505]],
+      "display": {
+        "color": [2, 155, 250],
+        "opacity": 0.08
+      }
+    },
+    {
+      "id": "WWZ_1",
+      "type": "wrong_way_zone",
+      "name": "wrong_way_check_area",
+      "polygon": [[1341, 4], [2237, 4], [3814, 2134], [20, 2145], [6, 1888], [528, 1048], [983, 340]],
+      "display": {
+        "color": [50, 248, 255],
+        "opacity": 0.02
+      }
+    }
+  ],
+  "traffic_lights": [],
+  "lines": [],
+  "vectors": [
+    {
+      "id": "V1",
+      "type": "flow_direction",
+      "name": "main_flow",
+      "start": [1817, 54],
+      "end": [1631, 2080],
+      "lane_id": "L1"
+    }
+  ],
+  "system": {
+    "timezone": "GMT+7",
+    "tracker": "bytetrack",
+    "tracker_params": {
+      "track_buffer": 60,
+      "match_thresh": 0.95
+    },
+    "detection_params": {
+      "conf": 0.1,
+      "imgsz": 1280,
+      "nms_iou": 0.25,
+      "min_visible_conf": 0.3
+    },
+    "max_dimension": 1920,
+    "features": {
+      "detect_wrong_way": true,
+      "detect_red_light": false,
+      "detect_wrong_turn": false,
+      "detect_wrong_lane": true,
+      "detect_plate": true,
+      "detect_helmet": true
+    },
+    "wrong_way_config": {
+      "zone_id": "WWZ_1",
+      "min_move_distance": 50,
+      "cos_threshold": -0.75
+    },
+    "tracking_point": {
+      "anchor": "bottom_center",
+      "offset": [0, 0]
+    },
+    "plate_params": {
+      "throttle_frames": 10,
+      "max_attempts": 5
+    },
+    "helmet_params": {
+      "model_path": "models/pretrained/bestyolo.pt",
+      "throttle_frames": 10,
+      "confirm_votes": 3,
+      "conf": 0.25,
+      "vote_window": 5
+    }
+  }
+}

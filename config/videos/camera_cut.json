@@ -1,0 +1,172 @@
+{
+  "meta": {
+    "video_id": "CM1",
+    "description": "Ko che biển rẽ phải",
+    "video_name": "camera_cut.mp4"
+  },
+  "classes": ["car", "motorcycle", "bus", "truck", "bicycle"],
+  "zones": [
+    {
+      "id": "R1",
+      "type": "road",
+      "name": "Vùng nhận diện",
+      "polygon": [[11, 1290], [232, 994], [211, 684], [125, 631], [514, 363], [553, 328], [878, 249], [1049, 196], [1135, 150], [1595, 103], [1752, 249], [2091, 292], [2594, 281], [2666, 581], [2338, 599], [2095, 677], [2395, 1504], [14, 1507]],
+      "role": "detection"
+    },
+    {
+      "id": "WWZ_1",
+      "type": "wrong_way_zone",
+      "name": "vùng nd ngược chiều",
+      "polygon": [[603, 1500], [1381, 132], [1638, 128], [2391, 1500]]
+    },
+    {
+      "id": "R2",
+      "type": "road",
+      "name": "Vùng xuất phát",
+      "polygon": [[603, 1496], [810, 1137], [2166, 1105], [2388, 1500]],
+      "role": "analysis"
+    },
+    {
+      "id": "TLZ_1",
+      "type": "traffic_light_zone",
+      "name": "Đèn giao thông",
+      "polygon": [[2280, 292], [2355, 292], [2352, 570], [2280, 563]]
+    },
+    {
+      "id": "L1",
+      "type": "lane",
+      "name": "Làn duy nhất",
+      "polygon": [[603, 1489], [817, 1137], [2173, 1112], [2384, 1500]],
+      "rules": {
+        "distribution_classes": {
+          "mode": "deny",
+          "classes": ["car"]
+        },
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["straight", "left", "right"]
+        },
+        "red_light_exceptions": {
+          "exempt_classes": {
+            "straight": ["car", "motorcycle", "bus", "truck", "bicycle"],
+            "left": ["motorcycle", "bus", "truck", "bicycle"]
+          }
+        }
+      }
+    }
+  ],
+  "lines": [
+    {
+      "id": "SL1",
+      "type": "stop_line",
+      "name": "vạch dừng",
+      "points": [[824, 1141], [2173, 1123]],
+      "lane_id": "L1"
+    },
+    {
+      "id": "ED1",
+      "type": "end_direction",
+      "name": "Vạch xd đi thẳng",
+      "points": [[1281, 261], [1724, 254]],
+      "direction": "straight"
+    },
+    {
+      "id": "ED2",
+      "type": "end_direction",
+      "name": "Vạch xd rẽ trái",
+      "points": [[1249, 272], [664, 1241]],
+      "direction": "left"
+    },
+    {
+      "id": "ED3",
+      "type": "end_direction",
+      "name": "Vạch xd rẽ phải",
+      "points": [[1752, 268], [2020, 724]],
+      "direction": "right"
+    }
+  ],
+  "traffic_lights": [
+    {
+      "id": "TL_1",
+      "mode": "detect",
+      "traffic_light_zone_id": "TLZ_1",
+      "apply_to": {
+        "lane_ids": ["L1"],
+        "directions": ["straight", "left"]
+      },
+      "display": {
+        "show_icon": false,
+        "radius": 10
+      },
+      "detect": {
+        "hsv_ranges": {
+          "red": [[0, 120, 70], [10, 255, 255], [170, 120, 70], [179, 255, 255]],
+          "yellow": [[23, 50, 100], [39, 255, 255]],
+          "green": [[40, 50, 50], [90, 255, 255]]
+        },
+        "min_pixels": 50
+      }
+    }
+  ],
+  "vectors": [
+    {
+      "id": "V1",
+      "name": "Vecto hướng đi đúng",
+      "start": [1495, 1435],
+      "end": [1527, 249]
+    }
+  ],
+  "system": {
+    "features": {
+      "detect_red_light": true,
+      "detect_wrong_way": true,
+      "detect_wrong_turn": true,
+      "detect_wrong_lane": true,
+      "detect_plate": true,
+      "detect_helmet": true,
+      "detect_congestion": true
+    },
+    "detection_params": {
+      "imgsz": 1280,
+      "conf": 0.1,
+      "nms_iou": 0.45,
+      "min_visible_conf": 0.3
+    },
+    "tracker_params": {
+      "track_buffer": 60,
+      "match_thresh": 0.95
+    },
+    "tracking_point": {
+      "anchor": "center",
+      "offset": [0, 0]
+    },
+    "max_dimension": 1920,
+    "display_params": {
+      "show_zones": true,
+      "show_lines": true,
+      "show_trajectories": true,
+      "show_vehicle_box": true,
+      "show_plate_box": true,
+      "show_helmet_box": true
+    },
+    "congestion_config": {
+      "zone_id": "R1",
+      "vehicle_threshold": 8,
+      "sustain_seconds": 5
+    },
+    "wrong_way_config": {
+      "zone_id": "WWZ_1",
+      "min_move_distance": 60,
+      "cos_threshold": -0.6
+    },
+    "plate_params": {
+      "throttle_frames": 10,
+      "max_attempts": 5
+    },
+    "helmet_params": {
+      "model_path": "models/pretrained/bestyolo.pt",
+      "conf": 0.25,
+      "throttle_frames": 10
+    }
+  }
+}

@@ -1,0 +1,20 @@
+# PyTorch (GPU/CUDA) - cai rieng, xem lenh trong README/setup notes
+# torch
+# torchvision
+
+ultralytics>=8.3.0
+opencv-python>=4.10.0
+supervision>=0.24.0
+numpy>=1.26.0
+pandas>=2.2.0
+openpyxl>=3.1.0  # engine ghi file .xlsx that (pandas.to_excel) - dung cho nut tai xuong log dang Excel tren Web UI
+matplotlib>=3.9.0
+pyyaml>=6.0
+tqdm>=4.66.0
+seaborn>=0.13.0  # yolov5 vendor (third_party/yolov5/utils/plots.py) can nay khi load LP_detector/LP_ocr
+
+# Web UI (src/web/) - FastAPI + uvicorn, xem run_web.py
+fastapi>=0.115.0
+uvicorn>=0.30.0
+python-multipart>=0.0.9
+imageio-ffmpeg>=0.6.0  # re-encode video output sang H.264 de phat duoc tren trinh duyet (cv2.VideoWriter ghi mp4v, trinh duyet khong doc duoc) - xem src/web/state.py::_reencode_for_browser

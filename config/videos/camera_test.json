@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "video_name": "camera_test.mp4",
+    "video_id": "CAMT",
+    "description": ""
+  },
+  "classes": ["car", "motorcycle", "bus", "truck"],
+  "zones": [],
+  "traffic_lights": [],
+  "lines": [],
+  "vectors": [],
+  "system": {
+    "features": {},
+    "tracker_params": {},
+    "detection_params": {}
+  }
+}

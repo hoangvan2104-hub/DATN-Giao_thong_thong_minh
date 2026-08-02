@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "video_id": "VDT",
+    "description": "Nga tu co den giao thong",
+    "video_name": "vid_test.mp4",
+    "created_at": "2026-04-07"
+  },
+  "classes": ["car", "bus", "truck"],
+  "zones": [
+    {
+      "id": "R0",
+      "type": "road",
+      "name": "road_detect",
+      "polygon": [[-2, 305], [228, 231], [112, 102], [299, 72], [771, 146], [1048, 124], [1173, 158], [1098, 203], [1130, 259], [1183, 289], [1271, 309], [931, 718], [737, 670], [580, 680], [296, 715], [7, 713]],
+      "role": "detection",
+      "display": {
+        "color": [96, 235, 9],
+        "opacity": 0.05
+      }
+    },
+    {
+      "id": "R1",
+      "type": "road",
+      "name": "road_main",
+      "polygon": [[263, 243], [566, 453], [596, 666], [507, 668], [309, 711], [12, 713], [1, 335]],
+      "role": "analysis",
+      "display": {
+        "color": [252, 173, 3],
+        "opacity": 0.05
+      }
+    },
+    {
+      "id": "L1",
+      "type": "lane",
+      "name": "lan_re_trai",
+      "polygon": [[263, 240], [309, 276], [-1, 390], [1, 327]],
+      "rules": {
+        "distribution_classes": {
+          "mode": "allow",
+          "classes": "all"
+        },
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["left"]
+        },
+        "red_light_exceptions": {
+          "exempt_classes": {
+            "left": ["motorcycle"]
+          }
+        }
+      }
+    },
+    {
+      "id": "L2",
+      "type": "lane",
+      "name": "lan_di_thang_1",
+      "polygon": [[313, 276], [374, 318], [3, 462], [3, 390]],
+      "rules": {
+        "distribution_classes": {
+          "mode": "allow",
+          "classes": "all"
+        },
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["straight"]
+        },
+        "red_light_exceptions": {
+          "exempt_classes": {
+            "straight": ["motorcycle"]
+          }
+        }
+      }
+    },
+    {
+      "id": "L3",
+      "type": "lane",
+      "name": "lane_di_thang_2",
+      "polygon": [[374, 318], [490, 403], [8, 590], [3, 460]],
+      "rules": {
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["straight"]
+        },
+        "red_light_exceptions": {
+          "exempt_classes": {
+            "straight": ["motorcycle"]
+          }
+        }
+      },
+      "display": {
+        "color": [238, 250, 2],
+        "opacity": 0.1
+      }
+    },
+    {
+      "id": "L4",
+      "type": "lane",
+      "name": "lane_re_phai",
+      "polygon": [[492, 401], [566, 453], [598, 666], [509, 673], [320, 711], [12, 715], [8, 588]],
+      "rules": {
+        "distribution_classes": {
+          "mode": "allow",
+          "classes": "all"
+        },
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["right"]
+        }
+      }
+    },
+    {
+      "id": "WWZ_1",
+      "type": "wrong_way_zone",
+      "name": "wrong_way_check_area",
+      "polygon": [[1168, 157], [1102, 208], [1127, 255], [1168, 281], [855, 697], [666, 667], [462, 682], [286, 712], [19, 714], [4, 712], [2, 321], [258, 244], [288, 213], [722, 143], [795, 157], [872, 155], [1055, 130]],
+      "display": {
+        "color": [50, 248, 255],
+        "opacity": 0.07
+      }
+    },
+    {
+      "id": "TLZ_1",
+      "type": "traffic_light_zone",
+      "name": "light_so_1",
+      "polygon": [[827, 29], [850, 34], [848, 64], [823, 62]],
+      "display": {
+        "color": [255, 255, 0],
+        "opacity": 0
+      }
+    },
+    {
+      "id": "TLZ_2",
+      "type": "traffic_light_zone",
+      "name": "light_so_2",
+      "polygon": [[904, 36], [938, 45], [932, 84], [898, 77]],
+      "display": {
+        "color": [255, 255, 0],
+        "opacity": 0
+      }
+    },
+    {
+      "id": "TLZ_3",
+      "type": "traffic_light_zone",
+      "name": "TLZ_3",
+      "polygon": [[995, 57], [990, 86], [1006, 90], [1014, 62]]
+    }
+  ],
+  "lines": [
+    {
+      "id": "SL1",
+      "type": "stop_line",
+      "name": "stop_L1",
+      "lane_id": "L1",
+      "points": [[263, 240], [309, 276]]
+    },
+    {
+      "id": "SL2",
+      "type": "stop_line",
+      "name": "stop_L2",
+      "lane_id": "L2",
+      "points": [[313, 276], [374, 318]]
+    },
+    {
+      "id": "SL3",
+      "type": "stop_line",
+      "name": "stop_L3",
+      "lane_id": "L3",
+      "points": [[374, 318], [490, 403]]
+    },
+    {
+      "id": "SL4",
+      "type": "stop_line",
+      "name": "stop_L4",
+      "lane_id": "L4",
+      "points": [[492, 401], [566, 453], [598, 666]]
+    },
+    {
+      "id": "ED1",
+      "type": "end_direction",
+      "name": "left_exit",
+      "direction": "left",
+      "points": [[239, 234], [781, 124]]
+    },
+    {
+      "id": "ED2",
+      "type": "end_direction",
+      "name": "straight_exit",
+      "direction": "straight",
+      "points": [[794, 133], [1180, 251]]
+    },
+    {
+      "id": "ED3",
+      "type": "end_direction",
+      "name": "right_exit",
+      "direction": "right",
+      "points": [[1190, 259], [600, 696]]
+    }
+  ],
+  "traffic_lights": [
+    {
+      "id": "TL_1",
+      "mode": "detect",
+      "traffic_light_zone_id": "TLZ_1",
+      "apply_to": {
+        "lane_ids": ["L1"],
+        "directions": []
+      },
+      "display": {
+        "show_icon": false,
+        "radius": 10
+      },
+      "detect": {
+        "hsv_ranges": {
+          "red": [[0, 120, 70], [10, 255, 255], [170, 120, 70], [179, 255, 255]],
+          "yellow": [[23, 50, 100], [39, 255, 255]],
+          "green": [[40, 50, 50], [90, 255, 255]]
+        },
+        "min_pixels": 50
+      }
+    },
+    {
+      "id": "TL_2",
+      "mode": "detect",
+      "traffic_light_zone_id": "TLZ_2",
+      "apply_to": {
+        "lane_ids": ["L2", "L3"]
+      },
+      "manual": {
+        "states": ["red", "yellow", "green"],
+        "durations": {
+          "red": 6,
+          "yellow": 3,
+          "green": 5
+        },
+        "start_offset": 0
+      },
+      "detect": {
+        "hsv_ranges": {
+          "red": [[0, 120, 70], [10, 255, 255], [170, 120, 70], [179, 255, 255]],
+          "yellow": [[23, 50, 100], [39, 255, 255]],
+          "green": [[40, 50, 50], [90, 255, 255]]
+        },
+        "min_pixels": 50
+      },
+      "display": {
+        "show_icon": false,
+        "radius": 10
+      }
+    },
+    {
+      "id": "TL_3",
+      "mode": "detect",
+      "traffic_light_zone_id": "TLZ_3",
+      "apply_to": {
+        "lane_ids": ["L4"],
+        "directions": ["right"]
+      },
+      "display": {
+        "show_icon": false,
+        "radius": 10
+      },
+      "detect": {
+        "hsv_ranges": {
+          "red": [[0, 120, 70], [10, 255, 255], [170, 120, 70], [179, 255, 255]],
+          "yellow": [[23, 50, 100], [39, 255, 255]],
+          "green": [[40, 50, 50], [90, 255, 255]]
+        },
+        "min_pixels": 50
+      }
+    }
+  ],
+  "vectors": [
+    {
+      "id": "V1",
+      "type": "flow_direction",
+      "name": "main_flow",
+      "start": [277, 435],
+      "end": [1022, 175]
+    }
+  ],
+  "system": {
+    "features": {
+      "detect_red_light": true,
+      "detect_wrong_way": true,
+      "detect_wrong_turn": true,
+      "detect_wrong_lane": false,
+      "detect_plate": false,
+      "detect_helmet": false,
+      "detect_congestion": true
+    },
+    "detection_params": {
+      "imgsz": 1280,
+      "conf": 0.1,
+      "nms_iou": 0.45,
+      "min_visible_conf": 0.3
+    },
+    "tracker_params": {
+      "track_buffer": 60,
+      "match_thresh": 0.95
+    },
+    "tracking_point": {
+      "anchor": "right_center",
+      "offset": [0, 0]
+    },
+    "display_params": {
+      "show_zones": true,
+      "show_lines": true,
+      "show_trajectories": true,
+      "show_vehicle_box": true,
+      "show_plate_box": false,
+      "show_helmet_box": false
+    },
+    "congestion_config": {
+      "zone_id": "R1",
+      "vehicle_threshold": 4,
+      "sustain_seconds": 3
+    },
+    "wrong_way_config": {
+      "zone_id": "WWZ_1",
+      "min_move_distance": 30,
+      "cos_threshold": -0.5
+    }
+  }
+}

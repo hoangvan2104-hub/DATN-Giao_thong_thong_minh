@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "video_id": "VT68",
+    "description": "",
+    "video_name": "VT68_CVA.mp4"
+  },
+  "classes": ["car", "motorcycle", "bus", "truck", "bicycle"],
+  "zones": [
+    {
+      "id": "R1",
+      "type": "road",
+      "name": "R1",
+      "polygon": [[16, 1616], [16, 1476], [642, 970], [491, 889], [734, 603], [1203, 549], [1861, 167], [2585, 145], [2779, 436], [3146, 582], [3372, 905], [3140, 1013], [3696, 2252], [16, 2263]],
+      "role": "detection"
+    },
+    {
+      "id": "R2",
+      "type": "road",
+      "name": "R2",
+      "polygon": [[1209, 2241], [1737, 1147], [3173, 1147], [3669, 2230]],
+      "role": "analysis"
+    },
+    {
+      "id": "WWZ_1",
+      "type": "wrong_way_zone",
+      "name": "WWZ_1",
+      "polygon": [[16, 1616], [16, 1476], [642, 970], [491, 889], [734, 603], [1203, 549], [1861, 167], [2585, 145], [2779, 436], [3146, 582], [3372, 905], [3140, 1013], [3696, 2252], [16, 2263]]
+    },
+    {
+      "id": "TLZ_1",
+      "type": "traffic_light_zone",
+      "name": "TLZ_1",
+      "polygon": [[3210, 237], [3200, 603], [3275, 603], [3291, 237]]
+    },
+    {
+      "id": "L1",
+      "type": "lane",
+      "name": "L1",
+      "polygon": [[1219, 2230], [1737, 1147], [3173, 1142], [3685, 2219]],
+      "rules": {
+        "distribution_classes": {
+          "mode": "allow",
+          "classes": ["car", "motorcycle", "bus"]
+        },
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["straight", "left"]
+        }
+      }
+    },
+    {
+      "id": "L2",
+      "type": "lane",
+      "name": "L2",
+      "polygon": [[22, 1452], [1872, 159], [2239, 143], [1214, 2250], [16, 2250]],
+      "rules": {
+        "traffic_light_exempt": true,
+        "direction_mode": {
+          "mode": "allow",
+          "directions": "all"
+        }
+      }
+    }
+  ],
+  "lines": [
+    {
+      "id": "ED1",
+      "type": "end_direction",
+      "name": "thẳng",
+      "points": [[2924, 526], [1225, 537]],
+      "direction": "straight"
+    },
+    {
+      "id": "ED2",
+      "type": "end_direction",
+      "name": "phải",
+      "points": [[2951, 526], [3194, 1059]],
+      "direction": "right"
+    },
+    {
+      "id": "ED3",
+      "type": "end_direction",
+      "name": "trái",
+      "points": [[707, 973], [1187, 574]],
+      "direction": "left"
+    },
+    {
+      "id": "SL1",
+      "type": "stop_line",
+      "name": "SL1",
+      "points": [[1673, 1124], [3221, 1129]],
+      "lane_id": "L1"
+    }
+  ],
+  "traffic_lights": [
+    {
+      "id": "TL_1",
+      "mode": "detect",
+      "traffic_light_zone_id": "TLZ_1",
+      "apply_to": {
+        "lane_ids": ["L1"],
+        "directions": ["straight", "right", "left"]
+      },
+      "display": {
+        "show_icon": false,
+        "radius": 10
+      },
+      "detect": {
+        "hsv_ranges": {
+          "red": [[0, 120, 70], [10, 255, 255], [170, 120, 70], [179, 255, 255]],
+          "yellow": [[23, 50, 100], [39, 255, 255]],
+          "green": [[40, 50, 50], [90, 255, 255]]
+        },
+        "min_pixels": 50
+      }
+    }
+  ],
+  "vectors": [
+    {
+      "id": "V1",
+      "name": "V1",
+      "start": [2455, 2206],
+      "end": [2450, 396],
+      "lane_id": "L1"
+    },
+    {
+      "id": "V2",
+      "name": "V2",
+      "start": [1872, 300],
+      "end": [594, 1980],
+      "lane_id": "L2"
+    }
+  ],
+  "system": {
+    "features": {
+      "detect_red_light": true,
+      "detect_wrong_way": true,
+      "detect_wrong_turn": true,
+      "detect_wrong_lane": true,
+      "detect_plate": true,
+      "detect_helmet": true,
+      "detect_congestion": true
+    },
+    "detection_params": {
+      "imgsz": 1280,
+      "conf": 0.1,
+      "nms_iou": 0.45,
+      "min_visible_conf": 0.3
+    },
+    "tracker_params": {
+      "track_buffer": 60,
+      "match_thresh": 0.95
+    },
+    "tracking_point": {
+      "anchor": "center",
+      "offset": [0, 0]
+    },
+    "max_dimension": 1920,
+    "congestion_config": {
+      "zone_id": "R1",
+      "vehicle_threshold": 8,
+      "sustain_seconds": 5
+    },
+    "wrong_way_config": {
+      "zone_id": "WWZ_1",
+      "min_move_distance": 30,
+      "cos_threshold": -0.5
+    },
+    "plate_params": {
+      "throttle_frames": 10,
+      "max_attempts": 5
+    },
+    "helmet_params": {
+      "model_path": "models/pretrained/bestyolo.pt",
+      "conf": 0.25,
+      "throttle_frames": 10
+    }
+  }
+}

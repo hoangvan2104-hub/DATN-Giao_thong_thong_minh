@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "video_id": "CM2",
+    "description": "",
+    "video_name": "camera1.mp4"
+  },
+  "classes": ["car", "motorcycle", "bus", "truck", "bicycle"],
+  "zones": [
+    {
+      "id": "R1",
+      "type": "road",
+      "name": "Nhận diện",
+      "polygon": [[18, 1293], [128, 1079], [228, 801], [214, 673], [642, 320], [1053, 245], [1649, 188], [1709, 195], [1792, 224], [2023, 263], [2266, 256], [2566, 256], [2659, 256], [2680, 573], [2352, 559], [2198, 609], [2095, 701], [2366, 1510], [18, 1503]],
+      "role": "detection"
+    },
+    {
+      "id": "R2",
+      "type": "road",
+      "name": "Xuất phát",
+      "polygon": [[689, 1506], [628, 1499], [710, 1339], [2302, 1314], [2366, 1506]],
+      "role": "analysis"
+    },
+    {
+      "id": "WWZ_1",
+      "type": "wrong_way_zone",
+      "name": "Ngược chiều",
+      "polygon": [[628, 1496], [1338, 217], [1681, 188], [2352, 1506]]
+    },
+    {
+      "id": "TLZ_1",
+      "type": "traffic_light_zone",
+      "name": "TL",
+      "polygon": [[2291, 295], [2352, 302], [2338, 555], [2280, 555], [2291, 309]]
+    },
+    {
+      "id": "L1",
+      "type": "lane",
+      "name": "L1",
+      "polygon": [[622, 1492], [841, 1117], [2121, 1057], [2340, 1480]],
+      "rules": {
+        "distribution_classes": {
+          "mode": "allow",
+          "classes": ["car", "bus", "truck", "bicycle"]
+        },
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["ST", "R"]
+        }
+      }
+    }
+  ],
+  "lines": [
+    {
+      "id": "SL1",
+      "type": "stop_line",
+      "name": "SL1",
+      "points": [[610, 1321], [2395, 1314]]
+    },
+    {
+      "id": "ED1",
+      "type": "end_direction",
+      "name": "thẳng",
+      "points": [[1196, 284], [1802, 263]],
+      "direction": "ST"
+    },
+    {
+      "id": "ED2",
+      "type": "end_direction",
+      "name": "trái",
+      "points": [[1196, 284], [596, 1310]],
+      "direction": "L"
+    },
+    {
+      "id": "ED3",
+      "type": "end_direction",
+      "name": "phải",
+      "points": [[1809, 259], [2084, 691]],
+      "direction": "R"
+    }
+  ],
+  "traffic_lights": [
+    {
+      "id": "TL_1",
+      "mode": "detect",
+      "traffic_light_zone_id": "TLZ_1",
+      "apply_to": {
+        "lane_ids": ["L1"],
+        "directions": ["ST", "L"]
+      },
+      "display": {
+        "show_icon": false,
+        "radius": 10
+      },
+      "detect": {
+        "hsv_ranges": {
+          "red": [[0, 120, 70], [10, 255, 255], [170, 120, 70], [179, 255, 255]],
+          "yellow": [[23, 50, 100], [39, 255, 255]],
+          "green": [[40, 50, 50], [90, 255, 255]]
+        },
+        "min_pixels": 50
+      }
+    }
+  ],
+  "vectors": [
+    {
+      "id": "V1",
+      "name": "V1",
+      "start": [1449, 1407],
+      "end": [1549, 302]
+    }
+  ],
+  "system": {
+    "features": {
+      "detect_red_light": true,
+      "detect_wrong_way": true,
+      "detect_wrong_turn": true,
+      "detect_wrong_lane": true,
+      "detect_plate": true,
+      "detect_helmet": true,
+      "detect_congestion": true
+    },
+    "detection_params": {
+      "imgsz": 1280,
+      "conf": 0.1,
+      "nms_iou": 0.45,
+      "min_visible_conf": 0.3
+    },
+    "tracker_params": {
+      "track_buffer": 60,
+      "match_thresh": 0.95
+    },
+    "tracking_point": {
+      "anchor": "center",
+      "offset": [0, 0]
+    },
+    "max_dimension": 1920,
+    "congestion_config": {
+      "zone_id": "R2",
+      "vehicle_threshold": 8,
+      "sustain_seconds": 2
+    },
+    "wrong_way_config": {
+      "zone_id": "WWZ_1",
+      "min_move_distance": 60,
+      "cos_threshold": -0.6
+    },
+    "plate_params": {
+      "throttle_frames": 10,
+      "max_attempts": 5
+    },
+    "helmet_params": {
+      "model_path": "models/pretrained/bestyolo.pt",
+      "conf": 0.25,
+      "throttle_frames": 10
+    }
+  }
+}

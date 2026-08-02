@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "video_name": "ngatu.mp4",
+    "video_id": "NGT",
+    "created_at": "2026-07-17",
+    "description": "Nga tu 5 lan (video demo/stock, khong phai camera giam sat that), migrate tu config cu ngatu.json"
+  },
+  "classes": ["car", "motorcycle", "truck", "bus", "bicycle"],
+  "zones": [
+    {
+      "id": "R0",
+      "type": "road",
+      "name": "road_detect",
+      "polygon": [[80, 4], [310, 117], [430, 17], [571, 68], [480, 219], [705, 362], [667, 428], [501, 428], [395, 373], [320, 421], [135, 308], [164, 245], [3, 121], [-1, 63]],
+      "role": "detection",
+      "display": {
+        "color": [96, 235, 9],
+        "opacity": 0.05
+      }
+    },
+    {
+      "id": "R1",
+      "type": "road",
+      "name": "road_main",
+      "polygon": [[75, 1], [268, 99], [135, 214], [3, 118], [4, 70]],
+      "role": "analysis",
+      "display": {
+        "color": [252, 173, 3],
+        "opacity": 0.05
+      }
+    },
+    {
+      "id": "L1",
+      "type": "lane",
+      "name": "lan_1",
+      "polygon": [[216, 13], [272, 108], [232, 128], [24, 3]],
+      "rules": {
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["left"]
+        }
+      },
+      "display": {
+        "color": [247, 7, 163],
+        "opacity": 0.1
+      }
+    },
+    {
+      "id": "L2",
+      "type": "lane",
+      "name": "lan_2",
+      "polygon": [[231, 128], [211, 147], [10, 20], [25, 0]],
+      "rules": {
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["left"]
+        }
+      },
+      "display": {
+        "color": [2, 155, 250],
+        "opacity": 0.1
+      }
+    },
+    {
+      "id": "L3",
+      "type": "lane",
+      "name": "lan_3",
+      "polygon": [[210, 146], [193, 162], [7, 44], [9, 19]],
+      "rules": {
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["left", "straight"]
+        }
+      },
+      "display": {
+        "color": [238, 250, 2],
+        "opacity": 0.1
+      }
+    },
+    {
+      "id": "L4",
+      "type": "lane",
+      "name": "lan_4",
+      "polygon": [[193, 162], [174, 182], [5, 76], [7, 46]],
+      "rules": {
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["straight"]
+        }
+      },
+      "display": {
+        "color": [247, 7, 163],
+        "opacity": 0.1
+      }
+    },
+    {
+      "id": "L5",
+      "type": "lane",
+      "name": "lan_5",
+      "polygon": [[173, 184], [135, 214], [2, 119], [4, 72]],
+      "rules": {
+        "direction_mode": {
+          "mode": "allow",
+          "directions": ["right"]
+        }
+      },
+      "display": {
+        "color": [2, 155, 250],
+        "opacity": 0.1
+      }
+    },
+    {
+      "id": "WWZ_1",
+      "type": "wrong_way_zone",
+      "name": "wrong_way_check_area",
+      "polygon": [[247, 5], [312, 110], [706, 357], [668, 428], [500, 428], [386, 367], [153, 237], [4, 119], [14, 13]],
+      "display": {
+        "color": [50, 248, 255],
+        "opacity": 0.07
+      }
+    },
+    {
+      "id": "TLZ_1",
+      "type": "traffic_light_zone",
+      "name": "light_so_1",
+      "polygon": [[662, 37], [662, 81], [721, 78], [717, 37]],
+      "display": {
+        "color": [255, 255, 0],
+        "opacity": 0.0
+      }
+    }
+  ],
+  "traffic_lights": [
+    {
+      "id": "TL_1",
+      "mode": "manual",
+      "traffic_light_zone_id": "TLZ_1",
+      "apply_to": {
+        "lane_ids": ["L1", "L2", "L3", "L4", "L5"]
+      },
+      "manual": {
+        "states": ["red", "yellow", "green"],
+        "durations": {
+          "red": 6,
+          "yellow": 3,
+          "green": 5
+        },
+        "start_offset": 0
+      },
+      "detect": {
+        "hsv_ranges": {
+          "red": [[0, 120, 70], [10, 255, 255], [170, 120, 70], [179, 255, 255]],
+          "yellow": [[20, 100, 100], [30, 255, 255]],
+          "green": [[40, 50, 50], [90, 255, 255]]
+        },
+        "min_pixels": 50
+      },
+      "display": {
+        "show_icon": true,
+        "radius": 10
+      }
+    }
+  ],
+  "lines": [
+    {
+      "id": "SL1",
+      "type": "stop_line",
+      "name": "stop_L1",
+      "lane_id": "L1",
+      "points": [[271, 96], [232, 128]]
+    },
+    {
+      "id": "SL2",
+      "type": "stop_line",
+      "name": "stop_L2",
+      "lane_id": "L2",
+      "points": [[231, 128], [211, 147]]
+    },
+    {
+      "id": "SL3",
+      "type": "stop_line",
+      "name": "stop_L3",
+      "lane_id": "L3",
+      "points": [[210, 146], [193, 162]]
+    },
+    {
+      "id": "SL4",
+      "type": "stop_line",
+      "name": "stop_L4",
+      "lane_id": "L4",
+      "points": [[193, 162], [174, 182]]
+    },
+    {
+      "id": "SL5",
+      "type": "stop_line",
+      "name": "stop_L5",
+      "lane_id": "L5",
+      "points": [[173, 184], [119, 226]]
+    },
+    {
+      "id": "ED1",
+      "type": "end_direction",
+      "name": "left_exit",
+      "direction": "left",
+      "points": [[280, 86], [535, 237]]
+    },
+    {
+      "id": "ED2",
+      "type": "end_direction",
+      "name": "straight_exit",
+      "direction": "straight",
+      "points": [[500, 222], [390, 396]]
+    },
+    {
+      "id": "ED3",
+      "type": "end_direction",
+      "name": "right_exit",
+      "direction": "right",
+      "points": [[138, 239], [388, 391]]
+    }
+  ],
+  "vectors": [
+    {
+      "id": "V1",
+      "type": "flow_direction",
+      "name": "main_flow",
+      "start": [120, 129],
+      "end": [573, 389]
+    }
+  ],
+  "system": {
+    "timezone": "GMT+7",
+    "tracker": "bytetrack",
+    "tracker_params": {
+      "track_buffer": 60,
+      "match_thresh": 0.95
+    },
+    "detection_params": {
+      "conf": 0.1,
+      "imgsz": 1280,
+      "nms_iou": 0.25,
+      "min_visible_conf": 0.3
+    },
+    "features": {
+      "detect_wrong_way": true,
+      "detect_red_light": true,
+      "detect_wrong_turn": true,
+      "detect_wrong_lane": true,
+      "detect_plate": true,
+      "detect_helmet": true
+    },
+    "wrong_way_config": {
+      "zone_id": "WWZ_1",
+      "min_move_distance": 15,
+      "cos_threshold": -0.6
+    },
+    "tracking_point": {
+      "anchor": "bottom_center",
+      "offset": [0, 0]
+    },
+    "plate_params": {
+      "throttle_frames": 10,
+      "max_attempts": 5
+    },
+    "helmet_params": {
+      "model_path": "models/pretrained/bestyolo.pt",
+      "throttle_frames": 10,
+      "confirm_votes": 3,
+      "conf": 0.25,
+      "vote_window": 5
+    }
+  }
+}
